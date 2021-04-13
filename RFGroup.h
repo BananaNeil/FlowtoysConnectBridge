@@ -20,13 +20,13 @@ struct SyncPacket {
   uint8_t reserved[2];
   uint8_t page;
   uint8_t mode;
-  uint8_t randomize_adjust : 1;
   uint8_t adjust_active : 1;
   uint8_t wakeup : 1;
   uint8_t power_off : 1;
   uint8_t force_reload : 1;
   uint8_t save : 1;
   uint8_t _delete : 1;
+  uint8_t randomize_adjust : 1;
   uint8_t alternate : 1;
 };
 #pragma pack(pop)
@@ -57,7 +57,7 @@ class RFGroup
       if(groupID <= 0) return;
       if(dirtyCount == 0 && !force) return;
       
-      DBG("SENDING PACKET: " + String(force));
+      DBG("SENDING PACKET: (adjust active: " + String(packet.adjust_active));
       print_bytes(&packet, sizeof(SyncPacket));
 
       radio->write(&packet, sizeof(SyncPacket));
@@ -67,6 +67,7 @@ class RFGroup
     
     void setData(CommandProvider::PatternData data, bool doNotUpdateIfSame = false)
     {
+      DBG("setData()");
       if(doNotUpdateIfSame)
       {
         
@@ -77,16 +78,17 @@ class RFGroup
         && packet.sat_active == (data.actives >> 2) & 1//true;
         && packet.val_active == (data.actives >> 3) & 1//true;
         && packet.speed_active == (data.actives >> 4) & 1//true;
-        && packet.density_active == (data.actives >> 5) & 1//true;
+        && packet.density_active == (data.actives >> 5) & 1//true;*/
         && packet.lfo[0] == data.lfo1
         && packet.lfo[1] == data.lfo2
         && packet.lfo[2] == data.lfo3
-        && packet.lfo[3] == data.lfo4*/
+        && packet.lfo[3] == data.lfo4
         && packet.global_val == data.brightness
         && packet.global_hue == data.hueOffset
         && packet.global_sat == data.saturation
         && packet.global_speed == data.speed
         && packet.global_density == data.density
+        && packet.adjust_active == data.adjust_active
         ) {
           //DBG(String(groupID) +  " : same packet");
           return;
@@ -109,6 +111,8 @@ class RFGroup
       packet.val_active = (data.actives >> 3) & 1;//true;
       packet.speed_active = (data.actives >> 4) & 1;//true;
       packet.density_active = (data.actives >> 5) & 1;//true;
+
+      DBG("SET PACKET ON GROUP: " + String(data.adjust_active));
 
       packet.adjust_active = data.adjust_active;
       packet.randomize_adjust = data.randomize_adjust;

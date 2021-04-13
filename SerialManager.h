@@ -137,8 +137,8 @@ class SerialManager :
         case 'P':
           {
             PatternData p;
-            String split[13];
-            int num = splitString(&message[1], split, 13);
+            String split[14];
+            int num = splitString(&message[1], split, 14);
             
             if(num > 0) p.groupID = split[0].toInt();
             p.groupIsPublic = command == 'P';
@@ -159,7 +159,12 @@ class SerialManager :
             if(num > 11) p.lfo3 = split[11].toInt();
             if(num > 12) p.lfo4 = split[12].toInt();
             if(num > 13) p.adjust_active = split[13].toInt() & 1;
-         print_bytes(&p, sizeof(PatternData));
+            if(num > 13) p.randomize_adjust = (split[13].toInt() & 64) == 64;
+
+            DBG("PATTERN DATA (from parse): ");
+            // print_bytes(&p, sizeof(PatternData));
+            DBG("=== " + String(p.randomize_adjust) );
+            DBG("===== " + String(split[13].toInt()) );
 
             sendPattern(p);
           }

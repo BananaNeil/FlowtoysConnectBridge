@@ -35,31 +35,31 @@ public:
   
   void init()
   {
-    isActivated = true; //Config::instance->getWifiMode();
-
-    if(isConnected)
-    {
-      DBG("Disconnecting first...");
-      WiFi.disconnect();
-      delay(100);
-    }
-
-    if(!isActivated)
-    {
-      DBG("Wifi is not activated, not initializing");
-      return;
-    }
-
-
-    digitalWrite(13, HIGH);
+    // isActivated = true; //Config::instance->getWifiMode();
+    //
+    // if(isConnected)
+    // {
+    //   DBG("Disconnecting first...");
+    //   WiFi.disconnect();
+    //   delay(100);
+    // }
+    //
+    // if(!isActivated)
+    // {
+    //   DBG("Wifi is not activated, not initializing");
+    //   return;
+    // }
+    //
+    //
+    // digitalWrite(13, HIGH);
   }
 
   void update() {
-    if(!isActivated) return;
-    if (!broadcastingLocal) setupLocal();
-
-    if(!isConnected)
-      connectToNetwork();
+    // if(!isActivated) return;
+    // if (!broadcastingLocal) setupLocal();
+    //
+    // if(!isConnected)
+    //   connectToNetwork();
   }
 
   void attemptToConnect(String ssid) {

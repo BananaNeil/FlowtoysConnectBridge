@@ -105,7 +105,7 @@ class BLEManager
 
       pRxCharacteristic = pService->createCharacteristic(
           CHARACTERISTIC_UUID_RX,
-          BLECharacteristic::PROPERTY_WRITE
+          BLECharacteristic::PROPERTY_WRITE_NR
                                               );
 
       pRxCharacteristic->setCallbacks(new DataCallback());

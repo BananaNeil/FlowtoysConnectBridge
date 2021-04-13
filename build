@@ -1,7 +1,0 @@
-
-
-
-# Run "Sketch" => "export compiled library" in the arduino IDE
-
-cp ./FlowtoysConnectBridge.ino.feather_esp32.bin uploader/bin/bridge.bin
-

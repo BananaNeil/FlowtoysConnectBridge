@@ -20,21 +20,21 @@ public:
    
   void init() { 
 
-    DBG("Init OSC");
-
-    Udp.stop();
-    Udp.begin(localPort);
-
-    String deviceName = Config::instance->getDeviceName();
-    if (!MDNS.begin(deviceName.c_str())) {
-    // if (!MDNS.begin("N FlowConnect")) {
-        DBG("Error setting up MDNS responder!");
-    } else {
-        MDNS.addService("_osc", "_udp", localPort);
-        DBG("_osc._udp. "+ String(deviceName) + " zeroconf is init.");
-    }
-
-    DBG("OSC Initialized");// listening on "+String(buf)+":"+String(localPort));
+    // DBG("Init OSC");
+    //
+    // Udp.stop();
+    // Udp.begin(localPort);
+    //
+    // String deviceName = Config::instance->getDeviceName();
+    // if (!MDNS.begin(deviceName.c_str())) {
+    // // if (!MDNS.begin("N FlowConnect")) {
+    //     DBG("Error setting up MDNS responder!");
+    // } else {
+    //     MDNS.addService("_osc", "_udp", localPort);
+    //     DBG("_osc._udp. "+ String(deviceName) + " zeroconf is init.");
+    // }
+    //
+    // DBG("OSC Initialized");// listening on "+String(buf)+":"+String(localPort));
   }
 
   char packetBuffer[255]; //buffer to hold incoming packet
@@ -68,7 +68,7 @@ public:
   }
   
   void update() {
-		int packetSize = Udp.parsePacket();
+		// int packetSize = Udp.parsePacket();
     //
 		// if (packetSize) {
 		// 	Serial.print("Received packet of size ");
