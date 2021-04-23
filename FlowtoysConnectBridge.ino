@@ -334,7 +334,7 @@ void setup()
 
 #if USE_BUTTONS
   btManager.init();
-  if (digitalRead(btManager.buttonPins[0]) && !conf.getAutoWake()) {
+  if (digitalRead(btManager.buttonPins[1]) && !conf.getAutoWake()) {
 
 
 #if USE_LEDS
